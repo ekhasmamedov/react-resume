@@ -1,22 +1,21 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Navigation from '../Navigation';
-import LandingPage from '../Landing';
-import HomePage from '../Home';
+import NavigationComponent from '../Navigation/navigation';
+import HomeComponent from '../Home/home';
+import { Container } from 'react-bootstrap';
 
 import * as ROUTES from '../../constants/routes';
+import ProfileComponent from '../Home/profile';
 
-const App = () => (
-  <Router>
-    <Navigation />
-
-	<hr />
-
-    <Route exact path={ROUTES.LANDING} component={LandingPage} />
-    <Route path={ROUTES.HOME} component={HomePage} />
-
-  </Router>
-);
-
-export default App;
+export default class App extends React.Component {
+  
+  render() { 
+    return (
+      <Container>  
+        <ProfileComponent />
+        <NavigationComponent />
+      </Container>
+    );
+  }
+}
