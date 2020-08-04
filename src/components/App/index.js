@@ -1,21 +1,56 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-import NavigationComponent from '../Navigation/navigation';
-import HomeComponent from '../Home/home';
-import { Container } from 'react-bootstrap';
+import SummaryComponent from '../Home/summary';
+import EducationComponent from '../Home/education';
+import SkillsComponent from '../Home/skills';
+import PortfolioComponent from '../Home/portfolio';
 
 import * as ROUTES from '../../constants/routes';
-import ProfileComponent from '../Home/profile';
 
-export default class App extends React.Component {
-  
-  render() { 
-    return (
-      <Container>  
-        <ProfileComponent />
-        <NavigationComponent />
-      </Container>
-    );
-  }
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import AppBar from '@material-ui/core/AppBar';
+import { Container } from '@material-ui/core';
+
+function NavBar() {
+  const [value, setValue] = React.useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <AppBar position="static">
+      <Tabs value={value} onChange={handleChange} centered>
+        <Tab label='Summary' component={Link} to={ROUTES.SUMMARY} />
+        <Tab label='Skills' component={Link} to={ROUTES.SKILLS} />
+        <Tab label='Education' component={Link} to={ROUTES.EDUCATION} />
+        <Tab label='Portfolio' component={Link} to={ROUTES.PORTFOLIO} />
+      </Tabs>
+    </AppBar>
+  )
 }
+
+export default function App() {  
+  return (
+    <Container>
+      <Router>
+        <NavBar/>
+
+        <hr />
+
+        <Switch>
+          <Route path={ROUTES.SUMMARY} component={SummaryComponent} />
+          <Route path={ROUTES.SKILLS} component={SkillsComponent} />
+          <Route path={ROUTES.EDUCATION} component={EducationComponent} />
+          <Route path={ROUTES.PORTFOLIO} component={PortfolioComponent} />
+        </Switch>
+  
+      </Router>
+    </Container>
+  );
+ }
+
