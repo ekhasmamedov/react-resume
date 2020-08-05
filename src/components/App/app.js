@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link, Redirect  } from 'react-router-dom';
 
 import SummaryComponent from '../Home/summary';
 import EducationComponent from '../Home/education';
@@ -8,16 +8,14 @@ import PortfolioComponent from '../Home/portfolio';
 
 import * as ROUTES from '../../constants/routes';
 
-import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import AppBar from '@material-ui/core/AppBar';
 import { Container } from '@material-ui/core';
 
 function NavBar() {
   const [value, setValue] = React.useState(0);
+  
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -43,6 +41,7 @@ export default function App() {
         <hr />
 
         <Switch>
+          <Route exact path='/' render={() => <Redirect to={ROUTES.SUMMARY} />}/>
           <Route path={ROUTES.SUMMARY} component={SummaryComponent} />
           <Route path={ROUTES.SKILLS} component={SkillsComponent} />
           <Route path={ROUTES.EDUCATION} component={EducationComponent} />
